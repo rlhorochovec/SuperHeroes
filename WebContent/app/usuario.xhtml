@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../WEB-INF/template/layout.xhtml">
+	<ui:define name="content">
+		<b:container style="padding-top: 20px; padding-bottom: 20px;">
+			<h3>Usuários |</h3>
+			<hr />
+			<h:form id="formUsuario" enctype="multipart/form-data">
+				<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
+					show-detail="true" show-summary="false" allowDismiss="true"
+					delay="10000" escape="true" />
+				<b:row>
+					<b:column span="3">
+						<b:panel collapsible="false">
+							<p:outputPanel>
+								<p align="center"><p:graphicImage value="upload/usuarios/${usuarioBean.usuario.foto}" rendered="#{usuarioBean.usuario.foto != null}" styleClass="redondo" /></p>
+								<p:fileUpload value="#{usuarioBean.arquivoFoto}" mode="simple" disabled="#{usuarioBean.permiteAcesso('USER')}" />
+							</p:outputPanel>
+							<b:inputText placeholder="Nome" value="#{usuarioBean.usuario.nome}" disabled="#{usuarioBean.permiteAcesso('USER')}" />
+							<b:inputText placeholder="E-mail" value="#{usuarioBean.usuario.email}" disabled="#{usuarioBean.permiteAcesso('USER')}" />
+							<b:inputText placeholder="Usuário" value="#{usuarioBean.usuario.usuario}" disabled="#{usuarioBean.permiteAcesso('USER')}" />
+							<b:inputSecret placeholder="Senha" value="#{usuarioBean.usuario.senhaUsuario}" disabled="#{usuarioBean.permiteAcesso('USER')}" />
+							
+							<b:selectOneMenu value="#{usuarioBean.usuario.perfil}" required="false" disabled="#{usuarioBean.permiteAcesso('USER')}">
+								<f:selectItem itemLabel="Perfil de Acesso" noSelectionOption="true"/>
+								<f:selectItem itemValue="ADMIN" itemLabel="Administrador" />
+								<f:selectItem itemValue="USER" itemLabel="Usuário"/>
+							</b:selectOneMenu>
+
+							<b:buttonGroup>
+								<b:commandButton title="Novo" icon="file" action="#{usuarioBean.novo}" size="sm" disabled="#{usuarioBean.permiteAcesso('USER')}" />
+								<b:commandButton title="Salvar" icon="floppy-disk" action="#{usuarioBean.salvar}" size="sm" disabled="#{usuarioBean.permiteAcesso('USER')}" />
+								<b:commandButton title="Excluir" icon="trash" action="#{usuarioBean.excluir}" size="sm" disabled="#{usuarioBean.permiteAcesso('USER')}" />
+							</b:buttonGroup>
+						</b:panel>
+					</b:column>
+
+					<b:column span="9">
+						<b:dataTable value="#{usuarioBean.usuarios}" var="u"
+							custom-lang-url="#{usuarioBean.urlPTBR}" excel="true" csv="true"
+							pdf="true" columnVisibility="true" copy="true" print="true">
+							<b:dataTableColumn label="Foto" style="text-align: center;">
+								<h:graphicImage value="upload/usuarios/#{u.foto}" width="50" styleClass="redondo" />
+							</b:dataTableColumn>
+							<b:dataTableColumn value="#{u.nome}" label="Nome" />
+							<b:dataTableColumn value="#{u.usuario}" label="Usuário" />
+							<b:dataTableColumn value="#{u.email}" label="E-mail" />
+
+							<b:dataTableColumn label="Ações" style="text-align: center;">
+								<b:commandButton title="Editar" icon="pencil" size="sm" disabled="#{usuarioBean.permiteAcesso('USER')}">
+									<f:setPropertyActionListener value="#{u}" target="#{usuarioBean.usuario}" />
+								</b:commandButton>
+
+								<b:commandButton title="Excluir" icon="trash" action="#{usuarioBean.excluir}"
+									onclick="return confirm('Tem certeza que deseja excluir #{u.nome}?')" size="sm" disabled="#{usuarioBean.permiteAcesso('USER')}">
+									<f:setPropertyActionListener value="#{u}" target="#{usuarioBean.usuario}" />
+								</b:commandButton>
+							</b:dataTableColumn>
+						</b:dataTable>
+					</b:column>
+				</b:row>
+			</h:form>
+		</b:container>
+	</ui:define>
+</ui:composition>
+</html>

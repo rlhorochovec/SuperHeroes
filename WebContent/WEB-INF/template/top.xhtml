@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	
+	<h:form>
+		<b:navBar brand="Super Heroes |" brandHref="#" inverse="true" fixed="top">
+			<b:navbarLinks>
+				<b:navLink value="Home" href="home.jsf" icon-awesome="home"></b:navLink>
+				<b:navLink value="Heróis" href="heroi.jsf" icon-awesome="star"></b:navLink>
+				<b:navLink value="Usuários" href="usuario.jsf" icon-awesome="users" rendered="#{usuarioBean.permiteAcesso('ADMIN')}"></b:navLink>
+				<b:dropMenu value="Ajuda" icon-awesome="info-circle">
+					<b:navLink value="Sobre o Desenvolvedor" data-target="#aboutModal"
+						data-toggle="modal"
+						onclick="$('.modalAbout').modal('show');return false;"></b:navLink>
+				</b:dropMenu>
+			</b:navbarLinks>
+	
+			<b:navbarLinks pull="right" styleClass="hidden-xs">
+				<h:graphicImage value="upload/usuarios/#{usuarioBean.usuarioLogado.foto}" width="40" />
+				<b:dropMenu value="#{usuarioBean.usuarioLogado.nome}" icon-awesome="user-circle-o">
+					<p align="center"><h:graphicImage value="upload/usuarios/#{usuarioBean.usuarioLogado.foto}" styleClass="redondo" /></p>
+					<br />
+					<b:navLink value="#{usuarioBean.usuarioLogado.nome}"></b:navLink>
+					<b:navLink value="#{usuarioBean.usuarioLogado.email}" href="mailto:#{usuarioBean.usuarioLogado.email}"></b:navLink>
+					<b:navLink></b:navLink>
+					<b:navLink header="Logout"></b:navLink>
+					<b:navCommandLink value="Sair" action="#{usuarioBean.sair}"></b:navCommandLink>
+				</b:dropMenu>
+			</b:navbarLinks>
+		</b:navBar>
+		
+		<b:modal id="amodal" title="Sobre o Desenvolvedor"
+		styleClass="modalAbout">
+		<b:row>
+			<b:column span="3" style="text-align: center;">
+				<h:graphicImage library="img" name="avatar.jpg" width="100" height="100" styleClass="redondo" />
+			</b:column>
+			<b:column span="9">
+				<h3>Rafael Horochovec</h3>
+				<h4>Analista de Automação de Testes SR.</h4>
+				<p>
+					<b>FAE Centro Universitário</b><br />
+					Tecnólogo | Tecnologia em Sistemas para Internet<br />
+					2012
+				</p>
+				<a href="https://br.linkedin.com/in/rlhorochovec" target="_blank"><h:graphicImage library="img" name="linkedin.png" styleClass="icon" /></a>
+				<a href="https://github.com/rlhorochovec" target="_blank"><h:graphicImage library="img" name="github.png" styleClass="icon" /></a>
+				<a href="https://wa.me/5541987067376" target="_blank"><h:graphicImage library="img" name="whatsapp.png" styleClass="icon" /></a>			
+			</b:column>
+		</b:row>
+		<f:facet name="footer">
+			<b:button value="Fechar" dismiss="modal" />
+		</f:facet>
+	</b:modal>
+	</h:form>
+</h:panelGroup>

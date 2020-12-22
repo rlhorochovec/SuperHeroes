@@ -1,0 +1,30 @@
+.redondo {
+	border-radius: 50%;
+	padding: 5px;
+}
+
+.icon {
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+}
+
+/* Autocomplete */
+.ui-datalist .ui-datalist-content {
+	border: 0 none
+}
+
+.ui-datalist ul {
+	padding: 0px 10px 0 20px;
+	margin: 5px 0;
+}
+
+.value {
+	font-weight: bold;
+}
+
+.ui-autocomplete-itemtip {
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+}

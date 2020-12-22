@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<title>Login</title>
+	<meta name="author" content="Rafael Horochovec"></meta>
+	<style type="text/css">
+		.form-signin {
+			margin: 0 auto;
+			max-width: 380px;
+			padding: 15px;
+		}
+	</style>
+</h:head>
+<h:body style="padding-top: 60px; ">
+	<b:container>
+		<h:form styleClass="form-signin" prependId="false">
+			<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
+				show-detail="true" show-summary="false" allowDismiss="true"
+				delay="10000" escape="true" />
+			<b:panel>
+				<p align="center"><h:graphicImage library="img" name="login.png" height="180" /></p>
+				<h3 class="form-signin-heading" align="center">Efetue login</h3>
+				<b:inputText id="usuario" value="#{usuarioBean.usuario.usuario}" placeholder="Usuário">
+					<f:facet name="prepend">
+						<b:icon name="user" />
+					</f:facet>
+				</b:inputText>
+				<b:inputText id="senha" value="#{usuarioBean.usuario.senhaUsuario}" placeholder="Senha" type="password">
+					<f:facet name="prepend">
+						<b:iconAwesome name="key" />
+					</f:facet>
+				</b:inputText>
+				<b:commandButton action="#{usuarioBean.logar}" value="Login" icon="log-in" iconAlign="right" size="lg" style="width:100%" />
+			</b:panel>
+		</h:form>
+	</b:container>
+</h:body>
+</html>

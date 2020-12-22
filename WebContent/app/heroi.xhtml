@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../WEB-INF/template/layout.xhtml">
+	<ui:define name="content">
+		<b:container style="padding-top: 20px; padding-bottom: 20px;">
+			<h3>Heróis |</h3>
+			<hr />
+			<h:form id="formHeroi" enctype="multipart/form-data">
+				<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
+					show-detail="true" show-summary="false" allowDismiss="true"
+					delay="10000" escape="true" />
+				<b:row>
+					<b:column span="3">
+						<b:panel collapsible="false">
+							<p:outputPanel>
+								<p align="center"><p:graphicImage value="upload/herois/${heroiBean.heroi.foto}" rendered="#{heroiBean.heroi.foto != null}" styleClass="redondo" /></p>
+								<p:fileUpload value="#{heroiBean.arquivoFoto}" mode="simple" />
+							</p:outputPanel>
+							<b:inputText placeholder="Nome" value="#{heroiBean.heroi.nome}" />
+							<b:inputText placeholder="Nome de Herói" value="#{heroiBean.heroi.nomeHeroi}" />
+							
+							<b:selectOneMenu value="#{heroiBean.heroi.universo}" required="false">
+								<f:selectItem itemLabel="Universo" noSelectionOption="true"/>
+								<f:selectItem itemValue="marvel.png" itemLabel="MARVEL" />
+								<f:selectItem itemValue="dc.png" itemLabel="DC"/>
+							</b:selectOneMenu>
+
+							<b:buttonGroup>
+								<b:commandButton title="Novo" icon="file" action="#{heroiBean.novo}" size="sm" />
+								<b:commandButton title="Salvar" icon="floppy-disk" action="#{heroiBean.salvar}" size="sm" />
+								<b:commandButton title="Excluir" icon="trash" action="#{heroiBean.excluir}" size="sm" />
+							</b:buttonGroup>
+						</b:panel>
+					</b:column>
+
+					<b:column span="9">
+						<b:dataTable value="#{heroiBean.herois}" var="h"
+							custom-lang-url="#{heroiBean.urlPTBR}" excel="true" csv="true"
+							pdf="true" columnVisibility="true" copy="true" print="true">
+							<b:dataTableColumn label="Foto" style="text-align: center;">
+								<h:graphicImage value="upload/herois/#{h.foto}" width="50" styleClass="redondo" />
+							</b:dataTableColumn>
+							<b:dataTableColumn value="#{h.nome}" label="Nome" />
+							<b:dataTableColumn value="#{h.nomeHeroi}" label="Nome de Herói" />
+							<b:dataTableColumn label="Universo" style="text-align: center;">
+								<h:graphicImage library="img" name="#{h.universo}" height="30" />
+							</b:dataTableColumn>
+							<b:dataTableColumn label="Ações" style="text-align: center;">
+								<b:commandButton title="Editar" icon="pencil" size="sm">
+									<f:setPropertyActionListener value="#{h}" target="#{heroiBean.heroi}" />
+								</b:commandButton>
+
+								<b:commandButton title="Excluir" icon="trash" action="#{heroiBean.excluir}"
+									onclick="return confirm('Tem certeza que deseja excluir #{h.nomeHeroi}?')" size="sm">
+									<f:setPropertyActionListener value="#{h}" target="#{heroiBean.heroi}" />
+								</b:commandButton>
+							</b:dataTableColumn>
+						</b:dataTable>
+					</b:column>
+				</b:row>
+			</h:form>
+		</b:container>
+	</ui:define>
+</ui:composition>
+</html>

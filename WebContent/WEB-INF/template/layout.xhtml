@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Super Heroes | #{usuarioBean.usuarioLogado.nome}</title>
+	<meta name="author" content="Rafael Horochovec"></meta>
+	<h:outputStylesheet name="basic.css" library="css" />
+</h:head>
+<!-- Add 50px padding top to the body for the navbar -->
+<h:body style="padding-top: 40px; padding-bottom: 20px;">
+	<ui:include src="top.xhtml" />
+	<ui:insert name="content" />
+	<ui:include src="footer.xhtml" />
+</h:body>
+</html>
